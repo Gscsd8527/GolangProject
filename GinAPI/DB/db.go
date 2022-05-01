@@ -11,7 +11,7 @@ import (
 
 //func InitDB() *gorm.DB {
 //	//前提是你要先在本机用Navicat创建一个名为go_db的数据库
-//	host := "47.95.215.251"
+//	host := "127.0.0.1"
 //	port := "3306"
 //	database := "gin_demo"
 //	username := "root"
