@@ -1,6 +1,8 @@
 package main
 
 import (
+	"GinAPI/DB"
+	middleware "GinAPI/Middlewares"
 	user_route "GinAPI/User"
 	result "GinAPI/Utils"
 	"fmt"
@@ -8,13 +10,14 @@ import (
 	"net/http"
 )
 
-//func init() {
-//	DB.InitDB()   // 自动创建表
-//}
+func init() {
+	DB.InitDB()   // 自动创建表
+}
 
 
 func main() {
 	r := gin.Default()
+	r.Use(middleware.LoggerToFile())
 	//创建一个路由组，游客可以访问
 	guest := r.Group("/user")
 	{
@@ -27,6 +30,12 @@ func main() {
 		guest.POST("/login", func(c *gin.Context) {
 			resp := user_route.LoginView(c)
 			fmt.Println("resp = ", resp)
+
+			if resp.Code != 200{
+				c.JSON(http.StatusBadRequest, resp)
+				return
+			}
+
 			c.JSON(http.StatusOK, resp)
 		})
 		guest.POST("/register", func(c *gin.Context) {

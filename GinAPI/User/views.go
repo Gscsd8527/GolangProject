@@ -1,8 +1,8 @@
 package User
 
 import (
-	"GinAPI/DB"
 	result "GinAPI/Utils"
+	"GinAPI/global"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin"
@@ -10,7 +10,7 @@ import (
 
 //注册用户
 func RegisterView(c *gin.Context) result.Response{
-	db := DB.InitDB()
+	//db := DB.InitDB()
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 	email := c.PostForm("email")
@@ -18,10 +18,12 @@ func RegisterView(c *gin.Context) result.Response{
 	if (username != "") && (password != "") && (email != ""){
 		user := &Users{UserName: username, PassWord: password, Emali: email}
 		var u1 Users
-		db.Where("username=? AND password=?", username, password).Find(&u1)
+		//db.Where("username=? AND password=?", username, password).Find(&u1)
+		global.DB.Where("username=? AND password=?", username, password).Find(&u1)
 		// 根据用户名不相等才能注册成功
 		if u1.UserName != username{
-			db.Create(&user)
+			//db.Create(&user)
+			global.DB.Create(&user)
 
 			//加入jwt校验， 登录成功就返回一个token
 			token, _ := result.GenToken(username)
@@ -38,7 +40,7 @@ func RegisterView(c *gin.Context) result.Response{
 
 //用户登录
 func LoginView(c *gin.Context) result.Response{
-	db := DB.InitDB()
+	//db := DB.InitDB()
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 	fmt.Printf("aaa = %T   len =%d  \n", password, len(password))
@@ -46,7 +48,8 @@ func LoginView(c *gin.Context) result.Response{
 	if (username != "") && (password != ""){
 		//user := &Users{UserName: username, PassWord: password}
 		var u1 Users
-		db.Where("username=? AND password=?", username, password).Find(&u1)
+		//db.Where("username=? AND password=?", username, password).Find(&u1)
+		global.DB.Where("username=? AND password=?", username, password).Find(&u1)
 		if u1.UserName == username && u1.PassWord == password{
 
 			//加入jwt校验， 登录成功就返回一个token
@@ -54,9 +57,9 @@ func LoginView(c *gin.Context) result.Response{
 			data :=make(map[string]string, 2)
 			data["token"] = token
 
-			return result.ResponseError("登录成功", data)
+			return result.ResponseSuccess("登录成功", data)
 		}
-		return result.ResponseSuccess("登录失败，用户名密码错误", "")
+		return result.ResponseError("登录失败，用户名密码错误", "")
 	}
 	return result.ResponseError("用户名密码漏填", "")
 }
