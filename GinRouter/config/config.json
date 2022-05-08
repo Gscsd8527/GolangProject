@@ -1,0 +1,14 @@
+{
+  "server":{
+    "port": 8080,
+    "run_mode": "debug"
+  },
+  "mysql": {
+    "host": "127.0.0.1",
+    "port": "3306",
+    "database": "gin_route",
+    "username": "root",
+    "password": "bigdata",
+    "charset" : "utf8"
+  }
+}
