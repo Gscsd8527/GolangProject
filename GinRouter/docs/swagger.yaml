@@ -1,0 +1,45 @@
+info:
+  contact: {}
+paths:
+  /user/info:
+    get:
+      consumes:
+      - application/json
+      description: 用户信息
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{ "code": 200, "data": {}, "msg": "ok" }'
+          schema:
+            type: string
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{ "code": 200, "data": {}, "msg": "ok" }'
+          schema:
+            type: string
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{ "code": 200, "data": {}, "msg": "ok" }'
+          schema:
+            type: string
+swagger: "2.0"

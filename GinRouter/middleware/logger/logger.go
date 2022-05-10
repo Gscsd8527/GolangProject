@@ -2,6 +2,7 @@ package logger
 
 import (
 	"GinRouter/pkg/logging"
+	"GinRouter/pkg/setting"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -48,7 +49,7 @@ func LoggerToFile() gin.HandlerFunc {
 
 	//设置日志  文本  格式
 	logger.SetFormatter(&logrus.TextFormatter{
-		TimestampFormat:"2006-01-02 15:04:05",
+		TimestampFormat: setting.AppSetting.TimestampFormat,
 	})
 
 	//设置日志  json  格式
@@ -73,9 +74,12 @@ func LoggerToFile() gin.HandlerFunc {
 		// 接收响应的数据并装换成json格式
 		var f interface{}
 		json.Unmarshal(response_data.body.Bytes(), &f)
-		m := f.(map[string]interface{})
-		fmt.Println("接口真实响应的数据为： ", m)
-		fmt.Println("取值code : ", m["code"])
+		//使用了日志就是nil值
+		if f != nil {
+			m := f.(map[string]interface{})
+			fmt.Println("接口真实响应的数据为： ", m)
+			fmt.Println("取值code : ", m["code"])
+		}
 
 
 		// 结束时间

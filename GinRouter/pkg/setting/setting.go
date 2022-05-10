@@ -16,6 +16,8 @@ type App struct {
 	LogSaveName string
 	LogFileExt  string
 	TimeFormat  string
+
+	TimestampFormat string
 }
 
 

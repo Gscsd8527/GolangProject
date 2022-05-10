@@ -12,7 +12,13 @@ import (
 )
 
 
-// 用户登录
+// @title 用户登录接口
+// @version 1.0
+// @description 用户登录
+// @Accept json
+// @Produce  json
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /user/login  [POST]
 func UserLogin(c *gin.Context){
 	//将 Context 放入到 结构体Gin中，进行封装
 	appG := utils.Gin{C:c}
@@ -49,7 +55,13 @@ func UserLogin(c *gin.Context){
 }
 
 
-//用户注册
+// @title 用户注册接口
+// @version 1.0
+// @description 用户注册
+// @Accept json
+// @Produce  json
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /user/register  [POST]
 func UserRegister(c *gin.Context){
 	//将 Context 放入到 结构体Gin中，进行封装
 	appG := utils.Gin{C:c}
@@ -87,7 +99,14 @@ func UserRegister(c *gin.Context){
 }
 
 
-//查看用户信息
+// @title 查看用户信息
+// @version 1.0
+// @description 用户信息
+// @Accept json
+// @Produce  json
+// @Param Authorization header string false "Bearer 用户令牌"
+// @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
+// @Router /user/info  [GET]
 func UserInfo(c *gin.Context){
 	//将 Context 放入到 结构体Gin中，进行封装
 	appG := utils.Gin{C:c}

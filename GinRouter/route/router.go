@@ -2,10 +2,13 @@ package route
 
 import (
 	"GinRouter/api"
+	_ "GinRouter/docs"
 	"GinRouter/middleware/jwt"
 	"GinRouter/middleware/logger"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	gs "github.com/swaggo/gin-swagger"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"net/http"
 	"strings"
 )
@@ -23,6 +26,8 @@ func InitRoute() *gin.Engine {
 	r.Use(Cors())       // 跨域请求
 	// 使用 Recovery 中间件
 	r.Use(gin.Recovery())
+
+	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 
 	//首页路由
 	r.GET("/",func(c *gin.Context) {
