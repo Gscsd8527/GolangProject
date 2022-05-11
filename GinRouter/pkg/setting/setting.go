@@ -52,6 +52,7 @@ func init()  {
 }
 
 
+//把值映射到结构体中
 func mapTo(section string, v interface{}) {
 	err := cfg.Section(section).MapTo(v)
 	if err != nil {

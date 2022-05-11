@@ -11,12 +11,14 @@ import (
 	"strings"
 )
 
-
+// @Summary 用户登录
 // @title 用户登录接口
 // @version 1.0
 // @description 用户登录
-// @Accept json
-// @Produce  json
+// @Param username formData string ture "用户名"
+// @Param password formData string ture "密码"
+// @Accept multipart/form-data
+// @Produce application/json
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /user/login  [POST]
 func UserLogin(c *gin.Context){
@@ -28,7 +30,7 @@ func UserLogin(c *gin.Context){
 
 	// ShouldBind： 获取请求结构体的内容
 	err := c.ShouldBind(&userinfo)
-
+	fmt.Println("userinfo =", userinfo)
 	if err != nil{
 		appG.Response(http.StatusOK, utils.INVALID_PARAMS, nil)
 		return
@@ -54,12 +56,15 @@ func UserLogin(c *gin.Context){
 	return
 }
 
-
+// @Summary 用户注册
 // @title 用户注册接口
 // @version 1.0
 // @description 用户注册
-// @Accept json
-// @Produce  json
+// @Param username formData string ture "用户名"
+// @Param password formData string ture "密码"
+// @Param email body string false "邮箱"
+// @Accept multipart/form-data
+// @Produce application/json
 // @Success 200 {string} json "{ "code": 200, "data": {}, "msg": "ok" }"
 // @Router /user/register  [POST]
 func UserRegister(c *gin.Context){
@@ -98,7 +103,7 @@ func UserRegister(c *gin.Context){
 	return
 }
 
-
+// @Summary 查看用户信息
 // @title 查看用户信息
 // @version 1.0
 // @description 用户信息

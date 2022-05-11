@@ -25,6 +25,7 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
+                "summary": "查看用户信息",
                 "parameters": [
                     {
                         "type": "string",
@@ -47,10 +48,25 @@ const docTemplate = `{
             "post": {
                 "description": "用户登录",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "summary": "用户登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "username",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "formData"
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -66,10 +82,33 @@ const docTemplate = `{
             "post": {
                 "description": "用户注册",
                 "consumes": [
-                    "application/json"
+                    "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "summary": "用户注册",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "用户名",
+                        "name": "username",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "formData"
+                    },
+                    {
+                        "description": "邮箱",
+                        "name": "email",
+                        "in": "body",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
